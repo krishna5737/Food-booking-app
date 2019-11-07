@@ -1,0 +1,143 @@
+{% load static %}
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Blk• Design System by Creative Tim
+  </title>
+  <!--     Fonts and icons     -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"> -->
+  <!-- Nucleo Icons -->
+  <!-- <link href="{% static './assets/css/nucleo-icons.css' %}" rel="stylesheet" /> -->
+  <!-- CSS Files -->
+  <link href="{% static './assets/css/blk-design-system.css' %}" rel="stylesheet" />
+
+</head>
+
+<body class="index-page">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-transparent bg-dark" color-on-scroll="100">
+      <div class="container">
+        <div class="navbar-translate">
+          <a class="navbar-brand" href="http://127.0.0.1:8000/" rel="tooltip" title="You love food, don't worry we will fill your stomach" data-placement="bottom" target="_blank">
+            <span>Ziggy • </span> Food is Here</a>
+          <button class="btn btn-primary btn-round" onclick="location.href='http://127.0.0.1:8000/auth/logout'" rel="tooltip" title="Logout">Logout</button>
+        </div>
+        
+      </div>
+    </nav>
+  <!-- End Navbar -->
+  <div class="wrapper">
+
+    <div class="main">
+      <div class="section section-lg section-coins" id="basic-elements">
+        <img src="{%static 'assets/img/path3.png' %}" class="path">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <hr class="line-info">
+              <h1>Select the hotel
+                <span class="text-info"> that suits you</span>
+              </h1>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Cities
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for i in city %}
+                    <a class="dropdown-item" href="?city={{i.name}}">{{i.name}}</a>
+                    {% endfor %}
+                  
+                </div>
+            </div>
+          </div>
+          </div>
+          
+          
+          {% for i in hotels %}
+          {% if forloop.first or forloop.counter0|divisibleby:3 %}
+          <div class="row">
+            {% endif %}
+            <div class="col-md-4">
+              <div class="card card-coin card-plain">
+                <div class="card-header">
+                  <img src='{% static "images/bg2.jpg" %}' class="img-center img-fluid">
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col text-center">
+                      <h4>{{i.name}}</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer text-center">
+                  <form action="{% url 'book_table' %}" method="POST">
+                    {% csrf_token%}
+                    <input type="hidden" name="hotelname" value="{{i.name}}">
+                    <button class="btn btn-primary btn-simple" type='submit'>
+                      Book a Seat
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            {% if forloop.counter|divisibleby:3 %}
+          </div>
+          </br>
+          </br>
+          </br>
+          </br>
+          </br>
+          {% endif %}
+          {% endfor %}
+
+
+        </div>
+    </div>
+    
+
+
+  </div>
+
+  </div>
+  <!--   Core JS Files   -->
+  <script src="{%static  './assets/js/core/jquery.min.js' %}" type="text/javascript"></script>
+  <script src="{%static  './assets/js/core/popper.min.js' %}" type="text/javascript"></script>
+  <script src="{%static  './assets/js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+  <script src="{%static  './assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+  <script src="{% static './assets/js/plugins/bootstrap-switch.js' %}"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="{%static  './assets/js/plugins/nouislider.min.js' %}" type="text/javascript"></script>
+  <!-- Chart JS -->
+  <script src="{%static  './assets/js/plugins/chartjs.min.js' %}"></script>
+  <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+  <script src="{%static  './assets/js/plugins/moment.min.js ' %}"></script>
+  <script src="{%static  './assets/js/plugins/bootstrap-datetimepicker.js' %}" type="text/javascript"></script>
+
+  <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
+  <script src="{%static  './assets/js/blk-design-system.min.js' %}" type="text/javascript"></script>
+  <script>
+    $(document).ready(function () {
+      blackKit.initDatePicker();
+      blackKit.initSliders();
+    });
+
+    function scrollToDownload() {
+
+      if ($('.section-download').length != 0) {
+        $("html, body").animate({
+          scrollTop: $('.section-download').offset().top
+        }, 1000);
+      }
+    }
+  </script>
+</body>
+
+</html>

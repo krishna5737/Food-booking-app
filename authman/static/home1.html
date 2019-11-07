@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    Home
+    
+    <a href="http://127.0.0.1:8000/auth/logout">Bye</a>
+<br>
+    {% for i in hotels %}
+        {{i.name}} / {{i.city}} <form action="{% url 'book_table' %}" method="POST">{% csrf_token%}<input type="hidden" name="hotelname" value="{{i.name}}"> <input type="submit" value="Book Seat"></form>
+        <br>
+    {% endfor %}
+    {% for i in full_hotels %}
+        {{i.name}} / {{i.tables_occupied}} 
+        <br>
+    {% endfor %}
+</body>
+</html>
